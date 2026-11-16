@@ -2,7 +2,7 @@
 
 [![tests](https://github.com/peter-antai/bank-shift-monitor/actions/workflows/tests.yml/badge.svg)](https://github.com/peter-antai/bank-shift-monitor/actions/workflows/tests.yml)
 
-Monitors an NHS staff bank's Allocate Loop system for newly available shifts at one unit, and sends a Telegram alert within ten minutes of one appearing.
+Monitors the Allocate Loop staff bank system used by NHS hospitals for newly available bank shifts, and sends a Telegram alert within ten minutes of one appearing.
 
 It never books anything. Detection is automated; the booking decision stays with the person.
 
@@ -32,7 +32,7 @@ Available   Approved
 
 ## The problem
 
-Bank shifts at my unit are released without notice. There is no alerting in Allocate, no email, no feed. Desirable shifts spread by word of mouth and are gone before anyone checking manually finds them.
+Bank shifts at the hospital where I work are released without notice. There is no alerting in Allocate, no email, no feed. Desirable shifts spread by word of mouth and are gone before anyone checking manually finds them.
 
 Checking a web interface every ten minutes is not a realistic thing for a person to do. It is a trivial thing for a computer to do.
 
@@ -66,7 +66,7 @@ The two rule shapes are deliberate. On weekdays the constraint is when the shift
 ```
 🌙 NEW SATURDAY NIGHT SHIFT
 
-<SITE_NAME>
+NHS Hospital
 <TARGET_UNIT>
 <TARGET_GRADE>
 
@@ -252,7 +252,7 @@ The scripts in `tools/` are different: they are interactive checks that drive a 
 | `ALLOCATE_TENANT` | — | Required. Tenant code from your organisation's Loop URL |
 | `TARGET_UNIT` | — | Required. Unit name exactly as Loop displays it |
 | `TARGET_GRADE` | — | Required. Grade name exactly as Loop displays it |
-| `SITE_NAME` | empty | Optional site line shown in alerts |
+| `SITE_NAME` | empty | Optional hospital name shown in alerts |
 | `STAFF_BANK_NAME` | `Staff Bank` | Who the alert says to contact |
 | `WEEKLY_LIMIT` | `4` | Standard bank shifts per Monday–Sunday week |
 | `ALLOCATE_HOME` | `~/allocate-monitor` | Profile and database location |
