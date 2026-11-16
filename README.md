@@ -1,5 +1,7 @@
 # Bank Shift Monitor for Allocate Loop
 
+[![tests](https://github.com/peter-antai/bank-shift-monitor/actions/workflows/tests.yml/badge.svg)](https://github.com/peter-antai/bank-shift-monitor/actions/workflows/tests.yml)
+
 Monitors an NHS staff bank's Allocate Loop system for newly available shifts at one unit, and sends a Telegram alert within ten minutes of one appearing.
 
 It never books anything. Detection is automated; the booking decision stays with the person.
@@ -228,6 +230,19 @@ ssh user@server 'cd ~/allocate-monitor && docker compose restart'
 
 ---
 
+## Testing
+
+```bash
+pip install -r requirements.txt pytest
+pytest
+```
+
+The tests in `tests/` cover the logic that decides what I get told: the weekday, weekend and night rules, the wording of each alert against the weekly limit, the notification state in SQLite, and the start-up configuration check. They use made-up duties and a temporary database, so they need no login, no browser and no network. GitHub Actions runs them on every push.
+
+The scripts in `tools/` are different: they are interactive checks that drive a real browser against a real session, so they are run by hand.
+
+---
+
 ## Configuration
 
 | Variable | Default | Meaning |
@@ -262,6 +277,9 @@ tools/
   session_expiry_test.py     prove expiry detection works, using a throwaway profile
   booking_logic_test.py      preview alerts and booking counts without sending
   get_chat_id.py             find your Telegram chat id
+tests/
+  conftest.py                test settings, no real account needed
+  test_shift_rules.py        shift rules, alert wording, state, config check
 docker/
   Dockerfile
 data/                        gitignored: browser profile, SQLite database
