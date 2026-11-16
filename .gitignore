@@ -1,0 +1,31 @@
+# ------------------------------------------------------------
+# SECRETS AND SESSION STATE
+#
+# The browser profile contains a live authenticated session.
+# Committing it would hand your account to anyone who can
+# read the repository. Never remove these lines.
+# ------------------------------------------------------------
+
+.env
+data/
+*.db
+*.db-journal
+allocate-profile/
+
+# ------------------------------------------------------------
+# Python
+# ------------------------------------------------------------
+
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# ------------------------------------------------------------
+# Editors and OS
+# ------------------------------------------------------------
+
+.vscode/
+.idea/
+.DS_Store
