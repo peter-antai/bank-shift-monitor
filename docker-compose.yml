@@ -1,0 +1,41 @@
+services:
+
+  monitor:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    image: allocate-monitor:latest
+    container_name: allocate-monitor
+
+    # Restart on crash and on host reboot, but stay stopped
+    # if you deliberately stopped it.
+    restart: unless-stopped
+
+    env_file:
+      - .env
+
+    environment:
+      # Date handling uses the local date, so the container
+      # must agree with you about what "today" is.
+      TZ: Europe/London
+
+      ALLOCATE_HOME: /data
+      ALLOCATE_HEADLESS: "true"
+
+    volumes:
+      # Browser profile, SQLite database and .env state.
+      - ./data:/data
+
+    # Chromium needs more shared memory than Docker's 64MB
+    # default or it will crash on some pages.
+    shm_size: "1gb"
+
+    # The monitor is a single loop; it does not need much,
+    # but capping it stops a runaway from taking the host down.
+    mem_limit: 2g
+
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
